@@ -1,6 +1,11 @@
-language:
-  python3
-
+sudo: true
+dist: "trusty" # otherwise 'python3-pip' won't be available
+language: "node_js"
+addons:
+  apt:
+    packages:
+      - "python3"
+      - "python3-pip"
 script:
   - python3 check_join_requests.py
 
