@@ -87,7 +87,7 @@ def main():
         print(json.dumps(results, indent=4))
     except:
         print('Unable to read group: {0}'.format(groupEmail))
-        raise
+        # raise
     print('Coming out of main')
 
 def get_group_members(group):
