@@ -69,7 +69,9 @@ def main():
     Creates a Google Admin-SDK Groups Settings API service object and outputs a
     group's settings identified by the group's email address.
     """
+    print('Calling main')
     credentials = get_credentials()
+    print('Got credentails')
     # http = credentials.authorize(httplib2.Http(proxy_info=httplib2.ProxyInfo(httplib2.socks.PROXY_TYPE_HTTP_NO_TUNNEL, '172.16.2.30', 8080, proxy_user='', proxy_pass='')))
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('groupssettings', 'v1', http=http)
@@ -78,11 +80,7 @@ def main():
     # groupEmail = \
     #     raw_input('Enter the email address of a Google Group in your domain: ')
 
-    'https://www.googleapis.com/admin/directory/v1/groups/groupKey'
-
-    groupEmail = 'kgp-tnp-noticeboard'
-    # groupEmail = 'kgp-tnp-noticeboard@googlegroups.com'
-
+    groupEmail = 'kgp-tnp-noticeboard@googlegroups.com'
     print('Service name:', service.groups())
     try:
         results = service.groups().get(groupUniqueId=groupEmail).execute()
@@ -90,8 +88,10 @@ def main():
     except:
         print('Unable to read group: {0}'.format(groupEmail))
         raise
+    print('Coming out of main')
 
 def get_group_members(group):
+    print('Getting group members')
     url = 'https://www.googleapis.com/admin/directory/v1/groups/{}/members'.format(group)
     return call_google_api("GET", url)
 
@@ -108,7 +108,7 @@ def add_group_member(group, payload=False):
 def call_google_api(method, url, payload=False):
     content = {}
     try:
-        print(method, url)
+        print('Calling API', method, url)
         http = get_conn()
         print(http)
         if payload:
@@ -122,16 +122,21 @@ def call_google_api(method, url, payload=False):
     return json.loads(content)
 
 def get_conn():
+    print('Getting connection')
     credentials = get_credentials()
-    http = httplib2.Http(proxy_info=httplib2.ProxyInfo(httplib2.socks.PROXY_TYPE_HTTP, '172.16.2.30', 8080, proxy_user=None, proxy_pass=None))
+    http = httplib2.Http()
     return(credentials.authorize(http))
 
 def main2():
+    print('Going into main2')
     res = get_group_members('kgp-tnp-noticeboard@googlegroups.com')
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(res)
+    print('Coming out of main2')
+
 
 if __name__ == '__main__':
+    main()
     main2()
 
 # import os

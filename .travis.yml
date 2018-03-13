@@ -1,0 +1,8 @@
+language:
+  python3
+
+script:
+  - python3 check_join_requests.py
+
+install:
+  - pip3 install -r requirements.txt
